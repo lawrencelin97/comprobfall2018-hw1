@@ -27,7 +27,7 @@ class node():
     minx=-7
     maxx=4
     miny=-7
-    minx=4
+    maxy=4
     scale=1
     neighbor=[]
     def __init__(self,x=0,y=0):
@@ -36,19 +36,18 @@ class node():
         
     def get_neighbor(self):
         for a in range(-1,2):
-            if self.x+a>self.minx and self.x+a<self.maxx:
+            if self.x+a>=self.minx and self.x+a<=self.maxx:
                 for b in range(-1,2):
-                    if self.y+b>self.miny and self.y+b<self.maxy and (a!=0 or b!=0):
-                        self.neighbor.append(node(self.x+a,self.y+b))
+                    if self.y+b>=self.miny and self.y+b<=self.maxy and (a!=0 or b!=0):
+                        self.neighbor.append(node(self.x+a,self.y+b))             
         return self.neighbor
     
 def main():
     
-    '''i=2
-    test = node(-5,-5)
-    neighbors=test.get_neighbor
-    for n in neighbors:
-        print("%n, %n" % (n.x, n.y))'''
+    i=2
+    test = node(-7,-7)
+    neighbors= test.get_neighbor()
+    
     
 #    start = node()
 #    start.x=-6
@@ -57,7 +56,7 @@ def main():
 #    goal = node()
 #    goal.x=-6
 #    goal.y=0
-    
+  
     fig, ax = plt.subplots()
     
     #Add Obstacles
@@ -80,8 +79,12 @@ def main():
     plt.rcParams["figure.figsize"] = fig_size
 
     #Add Lines for robot path
-    lines = [[(-7,-7),(-6.75,-6)]]
-    lc = mc.LineCollection(lines)
+    lines = []
+    for n in neighbors:
+        print("%d, %d" % (n.x,n.y))
+        lines.append([(n.x,n.y),(test.x,test.y)])
+        
+    lc = mc.LineCollection(lines,linewidths = 2)
     
     ax.add_collection(lc)
     
@@ -95,7 +98,7 @@ def main():
     ax.grid(which='minor', linestyle='-', linewidth='0.2', color='black')
     
     plt.show()
-#   
+#
     
     '''plt.axis([-7,4,-7,4])
     polygon = Polygon(5,True)
