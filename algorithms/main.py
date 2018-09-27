@@ -36,6 +36,7 @@ def main():
     lines = []
     iterator = testgoal
     while iterator.parent != None:
+        print("(%d,%d),(%d,%d)"%(iterator.x,iterator.y,iterator.parent.x,iterator.parent.y))
         lines.append([(iterator.x,iterator.y),(iterator.parent.x,iterator.parent.y)])
         iterator=iterator.parent
     

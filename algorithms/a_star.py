@@ -32,11 +32,17 @@ def find_path(start, goal):
         #Pop node with the smallest f value from heap
         if current_tuple != None:
             last_tuple=current_tuple
-            
+        
         current_tuple = hq.heappop(fringe)
+        print ("(%d,%d)" % (current_tuple[1].x,current_tuple[1].y))
         
         if last_tuple != None:
             current_tuple[1].parent = last_tuple[1]
+            
+        test=current_tuple[1]
+        while test != None:
+            print ("(%d,%d)" % (test.x,test.y))
+            test = test.parent
             
         closed.append(current_tuple[1])
         g_n = current_tuple[1].g
@@ -54,7 +60,7 @@ def find_path(start, goal):
         for neighbor in current_tuple[1].neighbors:
 #                neighbor.parent = current_tuple[1]
                 h_n = heuristic(neighbor,goal)
-
+                print ("(%d,%d)" % (neighbor.x,neighbor.y))
                 ###FIX THIS THING
 #                if is_diagonal(current_tuple[1], neighbor):
 #                    neighbor.g = g_n + 1.4 
