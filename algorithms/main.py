@@ -25,8 +25,8 @@ def c_val(node1, node2):
     
 def main():
     
-    teststart = node(-7,-7)
-    testgoal = node(-6,1)
+    teststart = node(-6,-6)
+    testgoal = node(-6,-5)
     
     find_path(teststart,testgoal)
   

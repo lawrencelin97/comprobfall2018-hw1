@@ -1,3 +1,7 @@
+import numpy as np
+
+import math
+
 from scipy.spatial import distance
 import matplotlib as mp
 import heapq as hq
@@ -17,33 +21,39 @@ def find_path(start, goal):
     fringe = [] #Nodes we are considering expanding
     closed = [] #Nodes we have visited
     start.g = 0 #Starting node has g value = 0
-
+    
     #Put start in the fringe with f value = 0:
-    hq.heappush(fringe, (start,0))
-     
+    hq.heappush(fringe, (0,start))
+    
     while(fringe):
         #Pop node with the smallest f value from heap
-        current = hq.heappop(fringe)
-        closed.append(current)
-        g_n = current.g
+        current_tuple = hq.heappop(fringe)
+        closed.append(current_tuple[1])
+        g_n = current_tuple[1].g
 
-        if current == goal:
+        if current_tuple[1] == goal:
                 print "Found Goal!"
                 return closed
         
-        current.get_neighbors()
+        current_tuple[1].get_neighbors()
         
-        for neighbor in current.neighbors:
-                neighbor.parent = current
-                h_n = heuristic(neighbor)
+        for neighbor in current_tuple[1].neighbors:
+                neighbor.parent = current_tuple[1]
+                h_n = heuristic(neighbor,goal)
 
                 ###FIX THIS THING
-                if is_diagonal(current, neighbor):
-                    neighbor.g = g_n + 1.4 
-                else:
-                    neighbor.g = g_n + 1 
+#                if is_diagonal(current_tuple[1], neighbor):
+#                    neighbor.g = g_n + 1.4 
+#                else:
+#                    neighbor.g = g_n + 1 
+                difx=neighbor.x-current_tuple[1].x
+                dify=neighbor.y-current_tuple[1].y
+                neighbor.g = g_n + np.sqrt(math.pow(difx,2)+math.pow(dify,2))
+                
+                
+                
                 f_n = h_n + neighbor.g 
-                hq.heappush(fringe, (neighbor, f_n))
+                hq.heappush(fringe, (f_n,neighbor))
 
     return "No path found"
 
@@ -65,6 +75,6 @@ class node():
             if self.x+a>=self.minx and self.x+a<=self.maxx:
                 for b in range(-1,2):
                     if self.y+b>=self.miny and self.y+b<=self.maxy and (a!=0 or b!=0):
-                        self.neighbor.append(node(self.x+a,self.y+b))             
+                        self.neighbors.append(node(self.x+a,self.y+b))             
     
     
