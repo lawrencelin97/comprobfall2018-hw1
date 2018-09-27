@@ -2,11 +2,11 @@ import numpy as np
 
 import math
 import matplotlib.pyplot as plt
-import matplotlib
 from matplotlib.patches import Polygon
 from matplotlib.collections import PatchCollection
 from matplotlib import collections as mc
-    
+from a_star import find_path, node
+
 def updateVertex(node1 = None, node2 = None):
     #if line of sight parent of 1 and node 2
     if True:
@@ -22,41 +22,25 @@ def c_val(node1, node2):
     dify=node1.y-node2.y
     return math.sqrt(difx*difx+dify*dify)
 
-class node():
-    g=0
-    minx=-7
-    maxx=4
-    miny=-7
-    maxy=4
-    scale=1
-    neighbor=[]
-    def __init__(self,x=0,y=0):
-        self.x=x
-        self.y=y
-        
-    def get_neighbor(self):
-        for a in range(-1,2):
-            if self.x+a>=self.minx and self.x+a<=self.maxx:
-                for b in range(-1,2):
-                    if self.y+b>=self.miny and self.y+b<=self.maxy and (a!=0 or b!=0):
-                        self.neighbor.append(node(self.x+a,self.y+b))             
-        return self.neighbor
     
 def main():
     
-    i=2
-    test = node(-7,-7)
-    neighbors= test.get_neighbor()
+    teststart = node(-7,-7)
+    testgoal = node(-6,1)
     
-    
-#    start = node()
-#    start.x=-6
-#    start.y=-6
-#    
-#    goal = node()
-#    goal.x=-6
-#    goal.y=0
+    find_path(teststart,testgoal)
   
+        #Add Lines for robot path
+    lines = []
+    iterator = testgoal
+    while iterator.parent != None:
+        lines.append([(iterator.x,iterator.y),(iterator.parent.x,iterator.parent.y)])
+    
+#    for n in neighbors:
+#        print("%d, %d" % (n.x,n.y))
+#        lines.append([(n.x,n.y),(test.x,test.y)])
+    
+    #start grid
     fig, ax = plt.subplots()
     
     #Add Obstacles
@@ -77,15 +61,9 @@ def main():
     fig_size[0] = 12
     fig_size[1] = 9
     plt.rcParams["figure.figsize"] = fig_size
-
-    #Add Lines for robot path
-    lines = []
-    for n in neighbors:
-        print("%d, %d" % (n.x,n.y))
-        lines.append([(n.x,n.y),(test.x,test.y)])
-        
-    lc = mc.LineCollection(lines,linewidths = 2)
     
+    #draw lines to the plot
+    lc = mc.LineCollection(lines,linewidths = 2)
     ax.add_collection(lc)
     
     #Set up Axis 
