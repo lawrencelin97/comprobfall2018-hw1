@@ -25,10 +25,19 @@ def find_path(start, goal):
     
     #Put start in the fringe with f value = 0:
     hq.heappush(fringe, (0,start))
+    last_tuple=None
+    current_tuple=None
     
     while(fringe):
         #Pop node with the smallest f value from heap
+        if current_tuple != None:
+            last_tuple=current_tuple
+            
         current_tuple = hq.heappop(fringe)
+        
+        if last_tuple != None:
+            current_tuple[1].parent = last_tuple[1]
+            
         closed.append(current_tuple[1])
         g_n = current_tuple[1].g
         
@@ -43,7 +52,7 @@ def find_path(start, goal):
         current_tuple[1].get_neighbors()
         
         for neighbor in current_tuple[1].neighbors:
-                neighbor.parent = current_tuple[1]
+#                neighbor.parent = current_tuple[1]
                 h_n = heuristic(neighbor,goal)
 
                 ###FIX THIS THING
