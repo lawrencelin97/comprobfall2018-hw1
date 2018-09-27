@@ -26,15 +26,18 @@ def c_val(node1, node2):
 def main():
     
     teststart = node(-6,-6)
-    testgoal = node(-6,-5)
+    testgoal = node(-6,-4)
     
     find_path(teststart,testgoal)
-  
-        #Add Lines for robot path
+    
+    print(testgoal.parent.x)
+    
+    #Add Lines for robot path
     lines = []
     iterator = testgoal
     while iterator.parent != None:
         lines.append([(iterator.x,iterator.y),(iterator.parent.x,iterator.parent.y)])
+        iterator=iterator.parent
     
 #    for n in neighbors:
 #        print("%d, %d" % (n.x,n.y))

@@ -9,6 +9,7 @@ import heapq as hq
 
 #Using straight line distance as heuristic
 def heuristic(n, goal):
+#    print ("(%d,%d)(%d,%d)" % (n.x,n.y,goal.x,goal.y))
     dx = abs(n.x - goal.x)
     dy = abs(n.y - goal.y)
     h_n = dx + dy
@@ -30,9 +31,13 @@ def find_path(start, goal):
         current_tuple = hq.heappop(fringe)
         closed.append(current_tuple[1])
         g_n = current_tuple[1].g
-
-        if current_tuple[1] == goal:
+        
+#        print ("(%d,%d)" % (current_tuple[1].x,current_tuple[1].y))
+#        print ("(%d,%d)" % (goal.x,goal.y))
+        
+        if current_tuple[1].x == goal.x and current_tuple[1].y == goal.y:
                 print "Found Goal!"
+                goal.parent=current_tuple[1].parent
                 return closed
         
         current_tuple[1].get_neighbors()
@@ -49,8 +54,6 @@ def find_path(start, goal):
                 difx=neighbor.x-current_tuple[1].x
                 dify=neighbor.y-current_tuple[1].y
                 neighbor.g = g_n + np.sqrt(math.pow(difx,2)+math.pow(dify,2))
-                
-                
                 
                 f_n = h_n + neighbor.g 
                 hq.heappush(fringe, (f_n,neighbor))
