@@ -89,6 +89,7 @@ class node():
         self.y=y
         
     def get_neighbors(self):
+        print ("(%d,%d)" % (self.x,self.y))
         for a in range(-1,2):
             if self.x+a>=self.minx and self.x+a<=self.maxx:
                 for b in range(-1,2):
