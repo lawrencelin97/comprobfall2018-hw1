@@ -44,19 +44,19 @@ class node():
     
 def main():
     
-    i=2
+    '''i=2
     test = node(-5,-5)
     neighbors=test.get_neighbor
     for n in neighbors:
-        print("%n, %n" % (n.x, score))
+        print("%n, %n" % (n.x, n.y))'''
     
-    '''start = node()
-    start.x=-6
-    start.y=-6
-    
-    goal = node()
-    goal.x=-6
-    goal.y=0
+#    start = node()
+#    start.x=-6
+#    start.y=-6
+#    
+#    goal = node()
+#    goal.x=-6
+#    goal.y=0
     
     fig, ax = plt.subplots()
     
@@ -95,7 +95,7 @@ def main():
     ax.grid(which='minor', linestyle='-', linewidth='0.2', color='black')
     
     plt.show()
-#   '''
+#   
     
     '''plt.axis([-7,4,-7,4])
     polygon = Polygon(5,True)
