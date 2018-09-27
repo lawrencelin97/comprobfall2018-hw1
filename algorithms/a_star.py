@@ -94,6 +94,7 @@ class node():
             if self.x+a>=self.minx and self.x+a<=self.maxx:
                 for b in range(-1,2):
                     if self.y+b>=self.miny and self.y+b<=self.maxy and (a!=0 or b!=0):
-                        self.neighbors.append(node(self.x+a,self.y+b))             
+                        self.neighbors.append(node(self.x+a,self.y+b))
+                        print ("(%d,%d)" % (self.x+a,self.y+b))
     
     
