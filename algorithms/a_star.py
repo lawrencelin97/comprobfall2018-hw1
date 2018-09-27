@@ -44,3 +44,7 @@ def find_path(start, goal):
                 hq.heappush(fringe, (neighbor, f_n))
 
     return "No path found"
+
+
+    
+    
